@@ -23,7 +23,7 @@ y_max = -26137.185546880
 #Define the grid
 grid_width = abs(x_max-x_min)
 grid_height = abs(y_max-y_min)
-cell_size = 20
+cell_size = 1
 cell_width = int(round(grid_width / cell_size,0) +1)
 cell_height = int(round(grid_height / cell_size,0) +1)
 print(cell_width,cell_height)
@@ -42,10 +42,12 @@ for i in range(cell_width):
             print(i,j,record[0])
             #save the result to array
             histogram[j][i] = record[0]
-           
+            
+f = np.array(histogram)  
+np.savetxt('histogram_{}m.txt'.format(cell_size),f)           
 #plot of the results
 print(histogram)
-f = np.array(histogram)        
+      
 plt.imshow(f, interpolation="nearest", origin="upper")
 plt.colorbar()
 plt.show()
