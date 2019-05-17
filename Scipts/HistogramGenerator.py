@@ -16,7 +16,7 @@ conn = psycopg2.connect("dbname=histogram user = postgres")
 cur = conn.cursor()
 
 #predefined size of the cell in [m]
-cell_size = 300
+cell_size = 500
 
 #defining all the parameters of the grid
 def define_grid(bb_box, cell_size):
@@ -51,13 +51,13 @@ def generate_histogram(grid_par, bb_box, cell_size):
         for j in range(grid_par[3]): 
             
             #making boundaries for specific cell
-            gx_min = x_min + cell_size*i
-            gy_min = y_min + cell_size*j
-            gx_max = x_min + cell_size*(i+1)
-            gy_max = y_min + cell_size*(j+1)
+            gx_min = bb_box[0] + cell_size*i
+            gy_min = bb_box[2] + cell_size*j
+            gx_max = bb_box[0] + cell_size*(i+1)
+            gy_max = bb_box[2] + cell_size*(j+1)
             
             #query
-            cur.execute("SELECT count(*) FROM point_cloud1 where x>={} and x<{} and y>={} and y<{};".format(gx_min,gx_max, gy_min, gy_max)) 
+            cur.execute("SELECT count(*) FROM point_cloud where x>={} and x<{} and y>={} and y<{};".format(gx_min,gx_max, gy_min, gy_max)) 
             
             for record in cur:
                 print(i,j,record[0])
@@ -67,7 +67,7 @@ def generate_histogram(grid_par, bb_box, cell_size):
     return histogram
 
 
-bb_box = get_bb.getbb('histogram','postgres','point_cloud1')
+bb_box = get_bb.getbb('histogram','postgres','point_cloud')
 grid_par = define_grid(bb_box, cell_size)
 histogram = generate_histogram(grid_par,bb_box,cell_size)
 
