@@ -17,7 +17,15 @@ def threshold(fn,th_value):
         else:
             histogram[index[0],index[1]] = 0
         #plot of the results
-        plt.imshow(histogram, interpolation="nearest", origin="upper")
-        plt.colorbar()
-        plt.show()
+        
+        
     return histogram
+test = 4
+i=500
+for j in range(test):
+    
+    histogram = threshold('histogram_1m.txt',i+j*50)
+    plt.subplot(2,2,j+1)
+    plt.imshow(histogram, interpolation="nearest", origin="upper")
+    plt.colorbar()
+plt.show()
