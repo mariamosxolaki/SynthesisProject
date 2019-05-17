@@ -2,7 +2,7 @@
 """
 Created on Fri May 17 18:59:35 2019
 
-@author: konra
+@author: konrad
 """
 
 import psycopg2
