@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri May 17 18:59:35 2019
-
-@author: konrad
+small script to estimate smallest bounding box on given point_cloud
+@author: Konrad Jarocki
 """
 
 import psycopg2
@@ -17,8 +16,8 @@ def getbb(dbname, user, table):
     for record in cur:
     
         boundingbox[0] = int(record[0])
-        boundingbox[1] = int(record[1])
-        boundingbox[2] = int(record[2])
+        boundingbox[1] = int(record[2])
+        boundingbox[2] = int(record[1])
         boundingbox[3] = int(record[3])
     return boundingbox
 
